@@ -1,0 +1,148 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize -->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Cloud Firestore</a>
+        </div>
+    </nav>
+    <!-- end -->
+    <!-- forms -->
+    <div class="card medium">
+        <div class="card-content">
+            <p>
+                Demostrando el uso de Cloud Firestore
+            </p>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#Add">Agregar</a></li>
+                <li class="tab"><a href="#Edit">Editar</a></li>
+                <li class="tab"><a href="#Delete">Eliminar</a></li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <!-- agregar -->
+            <div id="Add">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input disabled value="" id="disabled" type="text" class="validate">
+                                <label for="disabled"></label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate">
+                                <label for="icon_prefix">Nombre de usuario</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="icon_telephone" type="tel" class="validate">
+                                <label for="icon_telephone">Telephone</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                                <span class="helper-text" data-error="wrong" data-success="right"></span>
+                            </div>
+                        </div>
+                        <a id="btnSubmit" class="waves-effect waves-light btn-large"><i
+                                class="material-icons right">send</i>Agregar</a>
+                    </form>
+                </div>
+            </div>
+            <!-- editar -->
+            <div id="Edit">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input value="" id="idEdit" type="text" class="validate">
+                                <label for="disabled"></label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input disabled id="editName" type="text" class="validate">
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">phone</i>
+                                <input disabled id="editPhone" type="tel" class="validate">
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input disabled id="editEmail" type="email" class="validate">
+                                <span class="helper-text" data-error="wrong" data-success="right"></span>
+                            </div>
+                        </div>
+                        <a id="btnEdit" class="waves-effect waves-light btn-large"><i
+                                class="material-icons right">edit</i>Editar</a>
+                        <a id="btnEditSubmit" class="waves-effect waves-light btn-large"><i
+                                class="material-icons right">send</i>Agregar</a>
+                    </form>
+                </div>
+            </div>
+            <!-- eliminar -->
+            <div id="Delete">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input value="" id="idDelete" type="text" class="validate">
+                                <label for="disabled"></label>
+                            </div>
+                            <a id="btnDelete" class="waves-effect waves-light btn-large"><i
+                                    class="material-icons right">delete_forever</i>Eliminar</a>
+                    </form>
+                </div>
+            </div>
+            <!-- end -->
+        </div>
+    </div>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <!-- firestore js -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <!-- init -->
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCnxY8CT4LTPSm6a4LQQWmu7xc4BbFzaRw",
+            authDomain: "fir-example-e09b4.firebaseapp.com",
+            databaseURL: "https://fir-example-e09b4.firebaseio.com",
+            projectId: "fir-example-e09b4",
+            storageBucket: "fir-example-e09b4.appspot.com",
+            messagingSenderId: "874536663796",
+            appId: "1:874536663796:web:74143449cdfaf9449b7ca1"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <!-- javascript -->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
