@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link data-rh="true" rel="icon" href="https://i.ibb.co/QHxSFrQ/baseline-track-changes-black-18dp.png">
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -14,13 +15,16 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- materialize -->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <!-- internal style -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
     <!-- navbar -->
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Cloud Firestore</a>
+            <a class="brand-logo">Cloud Firestore</a>
         </div>
     </nav>
     <!-- end -->
@@ -42,7 +46,7 @@
             <!-- agregar -->
             <div id="Add">
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" id="addForm">
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">perm_identity</i>
@@ -51,18 +55,18 @@
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_prefix" type="text" class="validate">
-                                <label for="icon_prefix">Nombre de usuario</label>
+                                <input id="addUsuario" type="text" class="validate">
+                                <label for="addUsuario">Nombre de usuario</label>
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="icon_telephone" type="tel" class="validate">
-                                <label for="icon_telephone">Telephone</label>
+                                <input id="addPhone" type="tel" class="validate">
+                                <label for="addPhone">Telephone</label>
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
+                                <input id="addEmail" type="email" class="validate">
+                                <label for="addEmail">Email</label>
                                 <span class="helper-text" data-error="wrong" data-success="right"></span>
                             </div>
                         </div>
@@ -74,7 +78,7 @@
             <!-- editar -->
             <div id="Edit">
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" id="editForm">
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">perm_identity</i>
@@ -105,7 +109,7 @@
             <!-- eliminar -->
             <div id="Delete">
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" id="deleteForm">
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">perm_identity</i>
@@ -120,6 +124,12 @@
             <!-- end -->
         </div>
     </div>
+    <!-- end -->
+    <!-- table -->
+    <div class="c">
+        <ul id="list"></ul>
+    </div>
+    <!-- end -->
 
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
@@ -141,8 +151,33 @@
         firebase.initializeApp(firebaseConfig);
     </script>
     <!-- javascript -->
-    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        const db = firebase.firestore();
+        var user = db.collection("users")
+        const cafeList = document.querySelector('#ist');
+
+        function renderList(doc) {
+            let li = document.createElement('li');
+            let information = document.createElement('span');
+            li.setAttribute('data-id', doc.id);
+            information.textContent = doc.data().id + " - " + doc.data().username + " - " + doc.data().email + " - " + doc.data().phone;
+            li.appendChild(information);
+            list.appendChild(li);
+        }
+
+        user.onSnapshot(snapshot => {
+            let changes = snapshot.docChanges();
+            changes.forEach(change => {
+                if (change.type == 'added') {
+                    renderList(change.doc);
+                } else if (change.type == 'removed') {
+                    let li = list.querySelector('[data-id=' + change.doc.id + ']');
+                    list.removeChild(li);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
