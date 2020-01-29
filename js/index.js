@@ -1,4 +1,4 @@
-// load all components
+// load all components of materialize
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
 });
@@ -15,9 +15,11 @@ $(function () {
 
 // give phone format 
 $(function () {
-    $('#icon_telephone').mask('000-000-0000');
+    $('#addPhone').mask('000-000-0000');
+    $('#editPhone').mask('000-000-0000');
 });
 
+// give permission to edit
 $('#btnEdit').click(function (event) {
     $('#editName').prop("disabled", false);
     $('#editPhone').prop("disabled", false);
@@ -31,32 +33,27 @@ document.getElementById('btnSubmit').addEventListener('click', function () {
 
     user.doc($('#disabled').val()).set({
         id: $('#disabled').val(),
-        username: $('#icon_prefix').val(),
-        phone: $('#icon_telephone').val(),
-        email: $('#email').val()
+        username: $('#addUsuario').val(),
+        phone: $('#addPhone').val(),
+        email: $('#addEmail').val()
     });
-    alert('Se agrego nuevo usuario');
-    setTimeout(() => { location.reload(); }, 1500);
+    M.toast({html: 'Se agrego'})
+    document.getElementById("addForm").reset();
 });
 
 document.getElementById('btnEdit').addEventListener('click', function () {
     const db = firebase.firestore();
     var user = db.collection("users");
 
-    user.where("id", "==", $('#idEdit').val()).get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            if (querySnapshot.empty) {
-                alert('No existe registro');
-            }
+    user.where("id", "==", $('#idEdit').val()).get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
             var data = doc.data();
+            console.log(data.username);
             $("#editName").val(data.username);
             $("#editPhone").val(data.phone);
             $("#editEmail").val(data.email);
         });
     })
-        .catch(function (error) {
-            console.log("Error getting documents: ", error);
-        });
 });
 
 document.getElementById('btnEditSubmit').addEventListener('click', function () {
@@ -69,18 +66,18 @@ document.getElementById('btnEditSubmit').addEventListener('click', function () {
         phone: $('#editPhone').val(),
         email: $('#editEmail').val()
     });
-    alert('Se edito usuario');
-    setTimeout(() => { location.reload(); }, 1500);
+    M.toast({html: 'Se edito'})
+    document.getElementById("editForm").reset();
 });
 
 document.getElementById('btnDelete').addEventListener('click', function () {
     const db = firebase.firestore();
     var user = db.collection("users");
 
-    user.doc($('#idDelete').val()).delete().then(function() {
-        alert('Registro se elimino');
-        setTimeout(() => { location.reload(); }, 1500);
-    }).catch(function(error) {
-        alert('Error al eliminar');
+    user.doc($('#idDelete').val()).delete().then(function () {
+        M.toast({html: 'Se elimino'})
+        document.getElementById("deleteForm").reset();
+    }).catch(function (error) {
+        M.toast({html: 'Error al eliminar'})
     });
 });
