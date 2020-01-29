@@ -1,0 +1,26 @@
+<script type="text/javascript">
+        const db = firebase.firestore();
+        var user = db.collection("users")
+        const cafeList = document.querySelector('#ist');
+
+        function renderList(doc) {
+            let li = document.createElement('li');
+            let information = document.createElement('span');
+            li.setAttribute('data-id', doc.id);
+            information.textContent = doc.data().id + " - " + doc.data().username + " - " + doc.data().email + " - " + doc.data().phone;
+            li.appendChild(information);
+            list.appendChild(li);
+        }
+
+        user.onSnapshot(snapshot => {
+            let changes = snapshot.docChanges();
+            changes.forEach(change => {
+                if (change.type == 'added') {
+                    renderList(change.doc);
+                } else if (change.type == 'removed') {
+                    let li = list.querySelector('[data-id=' + change.doc.id + ']');
+                    list.removeChild(li);
+                }
+            });
+        });
+    </script>

@@ -17,7 +17,6 @@
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
     <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
     <!-- internal style -->
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -152,32 +151,6 @@
     </script>
     <!-- javascript -->
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        const db = firebase.firestore();
-        var user = db.collection("users")
-        const cafeList = document.querySelector('#ist');
-
-        function renderList(doc) {
-            let li = document.createElement('li');
-            let information = document.createElement('span');
-            li.setAttribute('data-id', doc.id);
-            information.textContent = doc.data().id + " - " + doc.data().username + " - " + doc.data().email + " - " + doc.data().phone;
-            li.appendChild(information);
-            list.appendChild(li);
-        }
-
-        user.onSnapshot(snapshot => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-                if (change.type == 'added') {
-                    renderList(change.doc);
-                } else if (change.type == 'removed') {
-                    let li = list.querySelector('[data-id=' + change.doc.id + ']');
-                    list.removeChild(li);
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

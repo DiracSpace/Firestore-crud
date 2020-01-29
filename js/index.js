@@ -37,7 +37,7 @@ document.getElementById('btnSubmit').addEventListener('click', function () {
         phone: $('#addPhone').val(),
         email: $('#addEmail').val()
     });
-    M.toast({html: 'Se agrego'})
+    M.toast({ html: 'Se agregó' })
     document.getElementById("addForm").reset();
 });
 
@@ -45,15 +45,20 @@ document.getElementById('btnEdit').addEventListener('click', function () {
     const db = firebase.firestore();
     var user = db.collection("users");
 
-    user.where("id", "==", $('#idEdit').val()).get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+    user.where("id", "==", $('#idEdit').val()).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            if (querySnapshot.empty) {
+                M.toast({ html: 'No existe' })
+            }
             var data = doc.data();
-            console.log(data.username);
             $("#editName").val(data.username);
             $("#editPhone").val(data.phone);
             $("#editEmail").val(data.email);
         });
     })
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
 });
 
 document.getElementById('btnEditSubmit').addEventListener('click', function () {
@@ -66,7 +71,7 @@ document.getElementById('btnEditSubmit').addEventListener('click', function () {
         phone: $('#editPhone').val(),
         email: $('#editEmail').val()
     });
-    M.toast({html: 'Se edito'})
+    M.toast({ html: 'Se editó' })
     document.getElementById("editForm").reset();
 });
 
@@ -75,9 +80,9 @@ document.getElementById('btnDelete').addEventListener('click', function () {
     var user = db.collection("users");
 
     user.doc($('#idDelete').val()).delete().then(function () {
-        M.toast({html: 'Se elimino'})
+        M.toast({ html: 'Se eliminó' })
         document.getElementById("deleteForm").reset();
     }).catch(function (error) {
-        M.toast({html: 'Error al eliminar'})
+        M.toast({ html: 'Error al eliminar' })
     });
 });
