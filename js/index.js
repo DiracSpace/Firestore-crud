@@ -86,3 +86,40 @@ document.getElementById('btnDelete').addEventListener('click', function () {
         M.toast({ html: 'Error al eliminar' })
     });
 });
+
+// filling the modal
+function loadData() {
+    const db = firebase.firestore();
+    var user = db.collection("users");
+    user.get().then(snapshot => {
+        setupGuides(snapshot.docs);
+    });
+}
+
+// DOM elements
+const guideList = document.querySelector('.guides');
+
+// setup guides
+const setupGuides = (data) => {
+
+    let html = '';
+    data.forEach(doc => {
+        const userInfo = doc.data();
+        const li = `
+      <li>
+        <div class="collapsible-header grey lighten-4"><i class="material-icons">person</i>${userInfo.id}</div>
+        <div class="collapsible-body">
+                        <span>
+                            ID: ${userInfo.id}<br>
+                            Name: ${userInfo.username}<br>
+                            Email: ${userInfo.email}<br>
+                            Phone: ${userInfo.phone}<br>
+                        </span>
+                    </div>
+      </li>
+    `;
+        html += li;
+    });
+    guideList.innerHTML = html
+
+};
