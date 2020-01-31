@@ -31,8 +31,9 @@
     <!-- navbar -->
     <nav>
         <div class="nav-wrapper">
-            <a class="brand-logo">Cloud Firestore</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="#!" class="brand-logo">Cloud Firestore</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
                 <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" onClick="loadData();">Ver
                         todos</a></li>
                 <li><a class="waves-effect waves-light btn modal-trigger" href="#modal2"><i class="material-icons">
@@ -41,6 +42,14 @@
             </ul>
         </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" onClick="loadData();">Ver
+                todos</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal2"><i class="material-icons right">
+                    ondemand_video
+                </i></a></li>
+    </ul>
     <!-- end -->
     <!-- forms -->
     <div class="card medium">
@@ -152,10 +161,11 @@
     <!-- modal -->
     <div id="modal2" class="modal">
         <div class="modal-content">
-            <video class="responsive-video" controls=”controls”>
-                <source src="vid/test.mp4" type="video/mp4">
-            </video>
-
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jss93jMK2SA"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
         </div>
     </div>
     <!-- end -->
