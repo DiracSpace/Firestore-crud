@@ -38,6 +38,7 @@ document.getElementById('btnSubmit').addEventListener('click', function () {
         email: $('#addEmail').val()
     });
     M.toast({ html: 'Se agregó' })
+    location.reload();
     document.getElementById("addForm").reset();
 });
 
